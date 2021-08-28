@@ -4,7 +4,9 @@ from .models import Document,Datos
 import pandas as pd
 import os, csv, openpyxl
 
+#ruta del proyecto
 current_directory = os.getcwd()
+
 # Create your views here.
 def cargar(request):
     if request.method == "POST":
@@ -39,6 +41,7 @@ def leerExcel(request):
     f = pd.DataFrame(sheet.values)
     print("file openpyxl ",f)
     print('*******************')
+
     excel_data_df = pd.read_excel(current_directory + settings.MEDIA_URL+'/cargar.xlsx', sheet_name='Centro')
     # print whole sheet data
     print(excel_data_df)
