@@ -1,0 +1,25 @@
+from django.shortcuts import render
+from .models import Document,Datos
+
+
+# Create your views here.
+def cargar(request):
+    if request.method == "POST":
+        # Fetching the form data
+        fileTitle = request.POST["fileTitle"]
+        uploadedFile = request.FILES["uploadedFile"]
+
+        # Saving the information in the database
+        document = Document(
+            title = fileTitle,
+            uploadedFile = uploadedFile
+        )
+        document.save()
+
+    documents = Document.objects.all()
+
+    return render(request, "cargar.html", context = {
+        "files": documents
+    })
+
+
