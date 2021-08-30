@@ -3,6 +3,7 @@ from django.conf import settings
 from .models import Document,Datos
 import pandas as pd
 import os, csv, openpyxl
+from .models import Datos
 
 #ruta del proyecto
 current_directory = os.getcwd()
@@ -44,8 +45,18 @@ def leerExcel(request):
 
     excel_data_df = pd.read_excel(current_directory + settings.MEDIA_URL+'/cargar.xlsx', sheet_name='Centro')
     # print whole sheet data
-    print(excel_data_df)
+    var1 = excel_data_df.get()
+    var2 = var1.to_dict()
 
+    print(var2[0])
+    '''
+    Datos.objects.create(
+        id_centro = excel_data_df.get('id_centro'),
+        Nom_Centro = excel_data_df.get('Nom_Centro'),
+        Region = excel_data_df.get('Region'),
+        Zona_Centro = excel_data_df.get('Zona_Centro'),
+        Cod_Encargado = excel_data_df.get('Cod_Encargado'),
+    )'''
     return HttpResponse('Prueba lectura Excel')
 
 def leerArchivo(request):
